@@ -23,3 +23,8 @@ python ai_video_generator.py --audio input.mp3 --style cinematic --theme nature
 - `diffusers`
 - `torch`
 - `opencv-python` (optional)
+
+
+## Installation
+Follow standard installation steps for this language.
+
