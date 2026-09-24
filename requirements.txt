@@ -1,1 +1,8 @@
 # Dependencies
+numpy>=1.24
+requests>=2.31
+python-dotenv>=1.0
+# Optional (enable full pipeline):
+# librosa>=0.10      # rich audio features (WAV works without it via built-in fallback)
+# moviepy>=1.0       # video rendering (needs ffmpeg)
+# diffusers torch    # real Stable Diffusion images (use --mock without)

@@ -48,3 +48,29 @@ Contributions, issues, and feature requests are welcome! Feel free to check the 
 ## 📝 License
 
 This project is licensed under standard terms.
+
+---
+
+## 🔧 Wave-1 fix notes (2026-09-24)
+
+- **Real LLM client:** new `llm_client.py` — reads `OPENAI_API_KEY` from the environment
+  (`OPENAI_BASE_URL`/`OPENAI_MODEL` optional, so it also works with OpenRouter/Groq),
+  and makes a **real** chat-completions HTTP call to generate one image prompt +
+  negative prompt per scene. No mock fallback: without a key it raises a clear
+  `RuntimeError`. `ScenePlanner.plan_scenes()` / `AudioToVideoGenerator` accept an
+  `llm_client`; when it is configured, prompts come from the LLM, otherwise the
+  original static style mappings are used (stated honestly at runtime).
+- **Real audio analysis without librosa:** `librosa` is now optional. For WAV files a
+  built-in fallback analyzer (stdlib `wave` + numpy) computes real RMS energy,
+  spectral centroid (FFT) and zero-crossing rate per segment.
+- **Bug fixes:** module crashed at import when `moviepy`/`diffusers` were missing
+  (annotations and `torch.cuda` referenced unconditionally); now guarded.
+- **Entry point:** new `main.py` CLI wiring the assembler to the LLM client
+  (`Dockerfile CMD ["python", "main.py"]` now points at a file that exists).
+- Verified 2026-09-24 on a real synthesized 6 s WAV: 2 segments analyzed with real
+  features, 2 scenes planned (static path — no key in sandbox), LLM client raises
+  the documented no-key error and returns HTTP 401 with a dummy key (proving a real
+  API call, not a stub), mock image gen produces a valid array.
+- **What still needs a key/install:** `OPENAI_API_KEY` for AI scripts; `librosa`
+  for MP3/richer features; `moviepy` + ffmpeg for actual video rendering;
+  `diffusers` + torch + GPU for real Stable Diffusion images (`--mock` otherwise).
