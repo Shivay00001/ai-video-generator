@@ -74,3 +74,7 @@ This project is licensed under standard terms.
 - **What still needs a key/install:** `OPENAI_API_KEY` for AI scripts; `librosa`
   for MP3/richer features; `moviepy` + ffmpeg for actual video rendering;
   `diffusers` + torch + GPU for real Stable Diffusion images (`--mock` otherwise).
+
+## Built by VisionQuantech
+
+Part of the [VisionQuantech](https://visionquantech.com/) AI automation studio. See [AI automation services](https://visionquantech.com/ai-automation-services) and [AI automation in the USA](https://visionquantech.com/ai-automation-usa).
